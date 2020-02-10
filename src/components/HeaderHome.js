@@ -31,10 +31,12 @@ const HeaderHome = (props) => (
         <Right>
         {
             props.showRight ? 
-            <Button bordered success small disabled={!props.canSend}>
+            <Button bordered success small disabled={!props.canSend} onPress={() => {
+                props.onSubmit();
+            }}>
                 <Text style={{
                     fontWeight: '700',
-                    color: 'green',
+                    color: props.canSend ? 'green' : 'gray',
                 }}>Enviar</Text>
             </Button>
         : null
