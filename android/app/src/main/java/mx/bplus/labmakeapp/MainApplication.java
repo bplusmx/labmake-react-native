@@ -1,4 +1,4 @@
-package mx.bplus.labmake;
+package mx.bplus.labmakeapp;
 
 import android.app.Application;
 import android.content.Context;

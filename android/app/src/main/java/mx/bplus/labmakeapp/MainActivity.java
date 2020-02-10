@@ -1,4 +1,4 @@
-package mx.bplus.labmake;
+package mx.bplus.labmakeapp;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
