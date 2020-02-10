@@ -76,6 +76,9 @@ export default class InfoScreen extends Component {
               textAlign: 'center',
             }}>Con el apoyo de:</Text>
 
+            <TouchableWithoutFeedback onPress={() => {
+              Linking.openURL('https://www.citig.mx/');
+            }}>
             <ImageBackground 
               style={{
                 height: 150,
@@ -91,7 +94,11 @@ export default class InfoScreen extends Component {
             }}>
               Colegio de Ingenieros en TIC del Estado de Guerrero, A.C.
             </Text>
+            </TouchableWithoutFeedback>
 
+            <TouchableWithoutFeedback onPress={() => {
+              Linking.openURL('https://bplus.mx');
+            }}>
             <ImageBackground 
               style={{
                 marginTop: 30,
@@ -108,6 +115,7 @@ export default class InfoScreen extends Component {
             }}>
               bPlus TI
             </Text>
+            </TouchableWithoutFeedback>
 
             <Text style={{
               fontSize: 15,
