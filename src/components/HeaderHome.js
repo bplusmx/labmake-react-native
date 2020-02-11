@@ -18,7 +18,11 @@ import PropTypes from 'prop-types'
 const HeaderHome = (props) => (
     <Header transparent noShadow>
         <Left>
-            <Icon name="menu" style={{color: '#bf0310'}} onPress={ () => {
+            <Icon name="menu" style={{
+                color: '#bf0310',
+                paddingLeft: 15,
+                paddingRight: 10,
+            }} onPress={ () => {
                props.navigation.toggleDrawer(); 
             }}></Icon>
         </Left>
@@ -31,13 +35,14 @@ const HeaderHome = (props) => (
         <Right>
         {
             props.showRight ? 
-            <Button bordered success small disabled={!props.canSend} onPress={() => {
+            <Button success small bordered={ !props.canSend } disabled={ !props.canSend } onPress={() => {
                 props.onSubmit();
             }}>
                 <Text style={{
+                    fontSize: 16,
                     fontWeight: '700',
-                    color: props.canSend ? 'green' : 'gray',
-                }}>Enviar</Text>
+                    color: props.canSend ? 'white' : 'gray',
+                }}>{ props.canSend ? '    Enviar    ' : 'Enviar' }</Text>
             </Button>
         : null
          }

@@ -21,6 +21,7 @@ import {
   CardItem,
   Picker,
   Icon,
+  Button,
 } from 'native-base';
 //import { SafeAreaView } from 'react-navigation';
 import ImagePicker from 'react-native-image-picker';
@@ -42,7 +43,7 @@ export default class HomeScreen extends Component {
     telefono: '',
     direccion: '',
     municipio: '',
-    estado: '',
+    estado: 'Guerrero',
     imagen: '',
     imagen_uri: '',
     imagen_type: '',
@@ -65,6 +66,9 @@ export default class HomeScreen extends Component {
 
     const cameraOptions = {
       title: 'Selecciona una imagen',
+      takePhotoButtonTitle: 'Tomar foto...',
+      chooseFromLibraryButtonTitle: 'Seleccionar foto existente...',
+      chooseWhichLibraryTitle: 'Selecionar librería de fotos',
       customButtons: customButtons,
       quality: 0.7,
       mediaType: 'photo',
@@ -165,10 +169,10 @@ export default class HomeScreen extends Component {
 
       if ( post_id > 0 ) {
         try {
-          const response = await this.uploadPicture(post_id);
-          const data = await response.json();
+          const response_upload = await this.uploadPicture(post_id);
+          const data = await response_upload.json();
     
-          console.log('Trying to upload image.', response, response.status, data);
+          console.log('Trying to upload image.', response_upload, response_upload.status, data);
 
           this.setState({
             curp: '',
@@ -201,7 +205,7 @@ export default class HomeScreen extends Component {
 
           Alert.alert(
             'Error inesperado',
-            'Ocurrió un error al tratar de cargar tu imagen, por favor vuelva a intentarlo'
+            "Ocurrió un error al tratar de cargar tu imagen, por favor vuelva a intentarlo. \n" + error
           );
         }
       } else {
@@ -220,7 +224,7 @@ export default class HomeScreen extends Component {
 
       Alert.alert(
         'Error inesperado',
-        'Ocurrió un error al tratar de enviar tus datos, por favor vuelva a intentarlo'
+        "Ocurrió un error al tratar de enviar tus datos, por favor vuelva a intentarlo.\n " + response.text
       );
 
       this.setState({
@@ -353,7 +357,7 @@ export default class HomeScreen extends Component {
               returnKeyType="next" 
               keyboardType="number-pad" 
               autoCompleteType="off"
-              maxLength={ 3 } 
+              maxLength={ 2 } 
               onChangeText={(data) => {
                 this.setState({
                   ...this.state,
@@ -380,23 +384,17 @@ export default class HomeScreen extends Component {
               <Label style={{
                 paddingTop: 15,
                 paddingLeft: 5,
+                color: '#555',
               }}>Tipo de prótesis</Label>
-              {/* <Input 
-              value={tipo} 
-              returnKeyType="next" 
-              onChangeText={(data) => {
-                this.setState({
-                  ...this.state,
-                  tipo: data,
-                })
-              }} /> */}
 
             <Picker
               mode="dropdown"
               iosIcon={<Icon name="arrow-down" />}
               placeholder="Seleccione el tipo de prótesis"
               placeholderStyle={{ color: "#888" }}
-              placeholderIconColor="#007aff"
+              placeholderIconColor="#007aff" 
+              headerBackButtonText="Regresar" 
+              iosHeader="Seleccione"
               style={{ width: undefined }}
               selectedValue={tipo}
               onValueChange={(data) => {
@@ -418,7 +416,7 @@ export default class HomeScreen extends Component {
           <Card style={styles.card}>
             <CardItem header>
               <Text style={styles.title}>
-              Información para poder ponernos en contacto contigo.
+              Información de contacto
               </Text>
             </CardItem>
 
@@ -467,28 +465,74 @@ export default class HomeScreen extends Component {
               }} />
             </Item>
 
-            <Item floatingLabel style={styles.item}>
-              <Label>Estado</Label>
-              <Input 
-              value={estado} 
-              returnKeyType="next" 
-              textContentType="addressState"
-              onChangeText={(data) => {
-                this.setState({
-                  ...this.state,
-                  estado: data,
-                })
-              }} />
-            </Item>
+            {/* <Item floatingLabel style={styles.item}> */}
+              <Label style={{
+                paddingTop: 15,
+                paddingLeft: 5,
+                color: '#555',
+              }}>Estado</Label>
+
+              <Picker
+                mode="dropdown"
+                iosIcon={<Icon name="arrow-down" />}
+                placeholder="Seleccione su estado de residencia"
+                placeholderStyle={{ color: "#888" }} 
+                placeholderIconColor="#007aff" 
+                headerBackButtonText="Regresar" 
+                iosHeader="Seleccione" 
+                style={{ width: undefined }}
+                selectedValue={estado}
+                onValueChange={(data) => {
+                  this.setState({
+                    ...this.state,
+                    estado: data,
+                  })
+                }}
+              >
+                <Picker.Item label="Aguascalientes" value="Aguascalientes" />
+                <Picker.Item label="Baja California" value="Baja California" />
+                <Picker.Item label="Baja California Sur" value="Baja California Sur" />
+                <Picker.Item label="Campeche" value="Campeche" />
+                <Picker.Item label="Chiapas" value="Chiapas" />
+                <Picker.Item label="Chihuahua" value="Chihuahua" />
+                <Picker.Item label="Ciudad de México (CDMX)" value="Ciudad de México (CDMX)" />
+                <Picker.Item label="Coahuila" value="Coahuila" />
+                <Picker.Item label="Colima" value="Colima" />
+                <Picker.Item label="Durango" value="Durango" />
+                <Picker.Item label="Guanajuato" value="Guanajuato" />
+                <Picker.Item label="Guerrero" value="Guerrero" />
+                <Picker.Item label="Hidalgo" value="Hidalgo" />
+                <Picker.Item label="Jalisco" value="Jalisco" />
+                <Picker.Item label="México" value="México" />
+                <Picker.Item label="Michoacán" value="Michoacán" />
+                <Picker.Item label="Morelos" value="Morelos" />
+                <Picker.Item label="Nayarit" value="Nayarit" />
+                <Picker.Item label="Nuevo León" value="Nuevo León" />
+                <Picker.Item label="Oaxaca" value="Oaxaca" />
+                <Picker.Item label="Puebla" value="Puebla" />
+                <Picker.Item label="Querétaro" value="Querétaro" />
+                <Picker.Item label="Quintana Roo" value="Quintana Roo" />
+                <Picker.Item label="San Luis Potosí" value="San Luis Potosí" />
+                <Picker.Item label="Sinaloa" value="Sinaloa" />
+                <Picker.Item label="Sonora" value="Sonora" />
+                <Picker.Item label="Tabasco" value="Tabasco" />
+                <Picker.Item label="Tamaulipas" value="Tamaulipas" />
+                <Picker.Item label="Tlaxcala" value="Tlaxcala" />
+                <Picker.Item label="Veracruz" value="Veracruz" />
+                <Picker.Item label="Yucatán" value="Yucatán" />
+                <Picker.Item label="Zacatecas" value="Zacatecas" />
+              </Picker>
+            {/* </Item> */}
 
             </Card>
 
             <Card style={{
               borderColor: '#891822',
+              marginBottom: 20,
             }}>
               <CardItem header>
                 <Text style={styles.title}>
-                Agrega una foto del área que necesita una prótesis
+                Agrega foto del área que necesita prótesis
                 </Text>
               </CardItem>
 
@@ -513,6 +557,19 @@ export default class HomeScreen extends Component {
               </TouchableWithoutFeedback>
             </Card>
 
+            <Button full success rounded bordered={ !formValid } disabled={ !formValid } style={{
+              marginBottom: 20,
+            }} onPress={() => {
+              this.onSubmit();
+            }}>
+              <Text style={{
+                color: 'white',
+                fontWeight: '700',
+                fontSize: 16,
+                color: formValid ? 'white' : 'gray',
+              }}>Enviar solicitud</Text>
+            </Button>
+
           </Form>
           
         </Content>
@@ -527,12 +584,13 @@ export default class HomeScreen extends Component {
 
 const styles = StyleSheet.create({
   title: {
-    fontSize: 16,
+    fontSize: 18,
     textAlign: 'center',
     paddingLeft: 2,
     paddingRight: 2,
     marginTop: 2,
     backgroundColor: '#fff',
+    fontWeight: '500',
   },
   bg: {
     flex: 1,
